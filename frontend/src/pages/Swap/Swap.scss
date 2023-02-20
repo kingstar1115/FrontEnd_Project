@@ -1,0 +1,212 @@
+$primary-hover-color: #3d4db5;
+
+.swap_form {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  &_content {
+    max-width: 32rem;
+    padding: 30px;
+    border-radius: 4px;
+    color: white;
+    background: #131740;
+    font-family: sans-serif;
+    position: relative;
+
+    &_top {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & .swap_control_left {
+        span {
+          border: 1px solid #FF06B7;
+          background: #FF06B7;
+          color: #fff;
+          padding: 5px 20px;
+          cursor: pointer;
+        }
+      }
+
+      & .swap_contol_right {
+        display: flex;
+        justify-content: space-between;
+
+        & .icon {
+          padding: 4px;
+        }
+      }
+    }
+    &_inner_form {
+      .form {
+        text-align: start;
+
+        label {
+          display: block;
+          width: 100%;
+          font-weight: 600;
+          font-size: 14px;
+          color: #fff;
+          text-transform: capitalize;
+        }
+
+        &_content {
+          margin-bottom: 20px;
+          margin-top: 5px;
+          display: flex;
+
+          &_input {
+            border: 1px solid #0D102D;
+            background: #0F1336;
+            height: 52px;
+            border-radius: 0px;
+            padding: 5px 15px;
+            width: 74%;
+            border-right: 0px solid #f1f1f1;
+            outline: none;
+          }
+
+          &_select {
+            position: relative;
+            font-family: Arial;
+            width: 26%;
+
+            .select_header {
+              height: 52px;
+              box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+              font-weight: 500;
+              font-size: 1.1rem;
+              color: white;
+              background: #050830;
+              display: flex;
+              align-items: center;
+              // justify-content: center;
+              position: relative;
+              padding-left: 1.5em;
+
+              .icon {
+                position: absolute;
+                right: 1.1em;
+              }
+            }
+
+            .select_content {
+              position: absolute;
+              z-index: 2;
+              width: 100%;
+
+              ul {
+                // padding: 0;
+                // margin: 0;
+                // padding-left: 1em;
+                text-align: center;
+                background: #050830;
+                // border: 2px solid #e5e5e5;
+                box-sizing: border-box;
+                color: white;
+                font-size: 1.1rem;
+                font-weight: 500;
+
+                &:first-child {
+                  padding-top: 0.8em;
+                  padding-bottom: 0.8em;
+                }
+
+                li {
+                  list-style: none;
+                  margin-bottom: 0.8em;
+                  text-align: start;
+                  padding-left: 1.6em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &_middle_bar {
+      display: flex;
+      justify-content: center;
+
+      a {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #FF06B7;
+        border-radius: 50%;
+      }
+    }
+
+    &_btn {
+      margin-top: 40px;
+
+      button {
+        width: 100%;
+        height: 50px;
+        background-color: #FF06B7;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+
+        &:hover {
+          background: #ab46d2;
+          transition: 0.4s;
+        }
+      }
+    }
+  }
+
+  .modal {
+    position: absolute;
+    top: 90px;
+    width: 90%;
+    // translate: -30px;
+    // padding-left: 20px;
+    // padding-right: 20px;
+    // border: 1px solid white;
+    box-shadow: 0px 0px 7px $primary-hover-color;
+    &_setting {
+      padding: 20px;
+      background-color: #131740;
+
+      .modal_header {
+        text-align: start;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+        h3 {
+          margin-left: 5px;
+          font-size: 20px;
+        }
+      }
+
+      .modal_content {
+        .swap_set {
+          text-align: start;
+          margin-bottom: 20px;
+          ul {
+            padding: 20px 0;
+            display: flex;
+            li{
+              padding: 5px 10px;
+              background: #FF06B7;
+              margin-right: 10px;
+              min-width: 60px;
+              text-align: center;
+            }
+          }
+        }
+      }
+      &.dis-none{
+        display: none;
+        transition: all 1s ease;
+      }
+    }
+  }
+}

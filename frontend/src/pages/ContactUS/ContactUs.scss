@@ -1,0 +1,79 @@
+$primary-hover-color: #3d4db5;
+
+
+.contactus_form {
+  position: absolute;
+  width: 100%;
+  // display: flex;
+  justify-content: center;
+
+  form {
+    max-width: 32rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0px 16px 0 #{$primary-hover-color};
+    margin: auto;
+
+    & .contactus-title {
+      font-size: 32px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+
+      h1 {
+        font-family: "Chakra Petch";
+        font-weight: 700;
+      }
+    }
+
+    & .form_input {
+      display: flex;
+      flex-wrap: wrap;
+
+      label {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        color: rgb(55 65 81 / var(--tw-text-opacity));
+        font-size: 0.75rem;
+        line-height: 1rem;
+        font-weight: bold;
+        font-family: "Chakra Petch";
+        margin-bottom: 0.5rem;
+        text-align: start;
+      }
+
+      input,
+      textarea {
+        appearance: none;
+        display: block;
+        width: 100%;
+        background-color: transparent !important;
+        // border: 1px solid transparent;
+        box-shadow: 0 0px 4px 0 #{$primary-hover-color};
+        border-radius: 0.25rem;
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.25;
+        font-family: "Chakra Petch";
+
+        &:focus {
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+          --tw-border-opacity: 1;
+          // border-color: rgb(255 255 255 / var(--tw-border-opacity));
+          // --tw-border-opacity: 0.4;
+          box-shadow: 0 0px 4px 0 #{$primary-hover-color};
+        }
+      }
+
+    }
+  }
+}
+.toast-setting{
+  border: 1px solid $primary-hover-color;
+  background: #3d4db5;
+  color:white;
+}

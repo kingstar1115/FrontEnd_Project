@@ -1,0 +1,108 @@
+.blog-item-date {
+  position: absolute;
+  top: 40%;
+  background: #ff06b7;
+  width: 100px;
+  height: 30px;
+  left: -10px;
+  text-align: center;
+  padding: 3px 5px;
+
+  .date-type {
+    font-weight: 600;
+    color: #fff;
+    padding-right: 3px;
+  }
+
+  .years-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.blog-btn {
+  float: left;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.4s ease 0s;
+  position: relative;
+  margin-top: 20px;
+
+  &:hover {
+    color: #ff06b7;
+  }
+}
+
+.blog-single-tags {
+  .tag-list a {
+    padding: 7px 14px;
+    border: 1px solid #ff06b7;
+    background: #ff06b7;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0px 5px;
+    transition: 0.04s;
+    outline: medium none;
+    cursor: pointer;
+
+    &:hover {
+      color: #fff;
+      background: #ab46d2;
+      border: 1px solid #ab46d2;
+      transition: 0.04s;
+    }
+  }
+}
+
+.threaded-comments {
+  margin-left: 50px;
+}
+
+.pagination {
+  padding-left: 0;
+  margin: 30px 0 0px;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+}
+
+.pagination__link,
+.pagination > li {
+  margin: 0px 5px 0px 0px;
+  display: inline-block;
+}
+
+.pagination a {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  color: white;
+  background: #131740;
+}
+
+.pagination__link {
+  list-style: none;
+  margin: 0px 3px 0px 0px;
+  font-weight: bold;
+  position: relative;
+}
+
+.pagination__link--active a {
+  color: #fff;
+  background: #ff06b7;
+}
+
+.pagination__link--disabled a {
+  color: rgb(198, 197, 202);
+  border: 1px solid transparent;
+}
+
+.pageheader {
+  background: url("../../assets/bread-bg1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
