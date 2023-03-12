@@ -41,6 +41,7 @@ export default function Swap() {
   
   const {
     connect,
+    disconnect,
     isUnsupportedChainIdError,
     chainId,
     account,
@@ -120,8 +121,19 @@ export default function Swap() {
       <div className="swap_form_content w-[90%] md:max-w-[450px]">
         <div className="swap_form_content_top">
           <div className="swap_control_left">
-            {/* <span>Swap</span> */}
-            {wallet && <span className="flex"><FontAwesomeIcon icon={faWallet} color="white" size="xs" style={{marginRight:"10px", border: "1px solid", borderRadius: "50%", padding: "3px"}}/>{shortenIfAddress(wallet)}</span>}
+            {wallet &&
+              <span
+                className="flex"
+                onClick={() => {
+                  disconnect();
+                  setWallet('');
+                  setChainId('');
+                }}
+              >
+                <FontAwesomeIcon icon={faWallet} color="white" size="xs" style={{marginRight:"10px", border: "1px solid", borderRadius: "50%", padding: "3px"}}/>
+                {shortenIfAddress(wallet)}
+              </span>
+            }
           </div>
           <div className="swap_contol_right">
             <div
