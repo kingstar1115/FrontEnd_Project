@@ -28,6 +28,8 @@ export default function Swap() {
   const [tokenAmountTo, setTokenAmountTo] = useState(0);
   const [openSettingModal, setOpenSettingModal] = useState(false);
   const [maxTokenFromAmount, setMaxTokenFromAmount] = useState(0);
+  const [wallet, setWallet] = useState<string | null>(null);
+  const [walletChainId, setChainId] = useState<string | null>(null);
   const {
     bnb,
     updateBnb,
@@ -36,7 +38,7 @@ export default function Swap() {
     getTokenBalance,
   } = useBalances(56);
   const { swapTokens, loading, disabled, error } = useSwap(56);
-
+  
   const {
     connect,
     isUnsupportedChainIdError,
@@ -76,6 +78,18 @@ export default function Swap() {
     return true;
   };
   useEffect(() => {
+    if(account) {
+      localStorage.setItem("walletAddress", String(account));
+      localStorage.setItem('chainId', String(chainId));
+    }
+
+    if(localStorage.getItem('walletAddress') !== null) {
+      setWallet(String(localStorage.getItem('walletAddress')));
+    }
+    if(localStorage.getItem('chainId') !== null) {
+      setChainId(String(localStorage.getItem('chainId')));
+    }
+
     let _temp_max = 0;
     if (coinFrom === 'BNB') {
       _temp_max = (bnb > 0.001) ? bnb - 0.001 : 0;
@@ -86,7 +100,7 @@ export default function Swap() {
       setMaxTokenFromAmount(tokenBalance);
       getOtherTradeAmount(tokenAmountFrom, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
     }
-  }, [coinFrom, coinTo, bnb, tokenBalance]);
+  }, [coinFrom, coinTo, bnb, tokenBalance, wallet, walletChainId]);
   useEffect(() => {
     if (tokenAmountFrom == 0) {
       setTokenAmountTo(0);
@@ -105,7 +119,7 @@ export default function Swap() {
         <div className="swap_form_content_top">
           <div className="swap_control_left">
             {/* <span>Swap</span> */}
-            {account && <span className="flex"><FontAwesomeIcon icon={faWallet} color="white" size="xs" style={{marginRight:"10px", border: "1px solid", borderRadius: "50%", padding: "3px"}}/>{shortenIfAddress(account)}</span>}
+            {wallet && <span className="flex"><FontAwesomeIcon icon={faWallet} color="white" size="xs" style={{marginRight:"10px", border: "1px solid", borderRadius: "50%", padding: "3px"}}/>{shortenIfAddress(wallet)}</span>}
           </div>
           <div className="swap_contol_right">
             <div
@@ -260,7 +274,7 @@ export default function Swap() {
           </div>
         </div>
         <div className="swap_form_content_btn">
-          {account && active && !isUnsupportedChainIdError && chainId === 56 ? (
+          {wallet && !isUnsupportedChainIdError && walletChainId === '56' ? (
             <button onClick={() => handleSwapToken()}>
               <Trans i18nKey="text_swap">Swap</Trans>
             </button>

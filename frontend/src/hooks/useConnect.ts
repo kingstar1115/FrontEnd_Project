@@ -61,6 +61,7 @@ const useConnect = () => {
     switchOrAddNetwork(56);
   }, [switchOrAddNetwork]);
 
+    
   return {
     account,
     chainId,
