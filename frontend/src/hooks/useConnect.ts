@@ -17,7 +17,7 @@ const BinanceSmartChainParams = {
   blockExplorerUrls: ["https://bscscan.com"],
 };
 const useConnect = () => {
-  const { activate, error, active, account, chainId } = useWeb3React();
+  const { activate, deactivate, error, active, account, chainId } = useWeb3React();
   const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError;
   const switchOrAddNetwork = useCallback(async (chainId: 56) => {
     const w = window as typeof window & { ethereum: any };
@@ -43,6 +43,11 @@ const useConnect = () => {
     }
   }, []);
   const connect = useCallback(() => activate(injected), [activate]);
+  const disconnect = () => {
+    deactivate();
+    localStorage.clear();
+  }
+
   const balance = useCallback(() => getBalance(String(account)), [activate]);
   const getBalance = async (account:any) => {
     const w = window as typeof window & { ethereum: any };
@@ -61,11 +66,12 @@ const useConnect = () => {
     switchOrAddNetwork(56);
   }, [switchOrAddNetwork]);
 
-    
+
   return {
     account,
     chainId,
     connect,
+    disconnect,
     isUnsupportedChainIdError,
     active,
     switchToBSC,
