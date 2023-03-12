@@ -100,6 +100,8 @@ export default function Swap() {
       setMaxTokenFromAmount(tokenBalance);
       getOtherTradeAmount(tokenAmountFrom, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
     }
+
+    // disconnect
   }, [coinFrom, coinTo, bnb, tokenBalance, wallet, walletChainId]);
   useEffect(() => {
     if (tokenAmountFrom == 0) {
