@@ -5,14 +5,14 @@ import { ContactModule } from './contact/contact.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailModule } from './mail/mail.module';
-import entities from './typeorm';
+import entities from 'entity';
 import { BlogModule } from './blog/blog.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigModule,BlogModule],
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         host: configService.get('DB_HOST'),
@@ -27,8 +27,9 @@ import { BlogModule } from './blog/blog.module';
     }),
     ContactModule,
     MailModule,
+    BlogModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

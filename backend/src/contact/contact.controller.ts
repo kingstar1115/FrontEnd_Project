@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
@@ -9,33 +19,40 @@ export class ContactController {
   constructor(
     private readonly contactService: ContactService,
     private readonly mailService: MailService,
-  ) { }
+  ) {}
   @Post()
   @UsePipes(ValidationPipe)
   create(@Body() createContactDto: CreateContactDto) {
     this.contactService.create(createContactDto);
-    let fn = createContactDto.firstname;
-    let ln = createContactDto.lastname;
-    let to = createContactDto.email;
-    let subject = "Algonrich received your message";
-    let mail = "Hi " + createContactDto.firstname + ". Thank you very much for contacting us.";
-    let time = new Date();
+    const fn = createContactDto.firstname;
+    const ln = createContactDto.lastname;
+    const to = createContactDto.email;
+    const subject = 'Algonrich received your message';
+    const mail =
+      'Hi ' +
+      createContactDto.firstname +
+      '. Thank you very much for contacting us.';
+    const time = new Date();
     try {
-      this.mailService.sendMail(fn, ln, to, subject, mail)
-        .then((res) => {
-          this.mailService.sendMailToAdmin(fn + " " + ln,
-            createContactDto.email, time.toLocaleDateString(),
-            "You have a new message from " + fn + " " + ln,
+      this.mailService
+        .sendMail(fn, ln, to, subject, mail)
+        .then(() => {
+          this.mailService.sendMailToAdmin(
+            fn + ' ' + ln,
+            createContactDto.email,
+            time.toLocaleDateString(),
+            'You have a new message from ' + fn + ' ' + ln,
             createContactDto.message,
-            "admin@algonrich.com");
+            'admin@algonrich.com',
+          );
           return true;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
           return false;
         });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return false;
     }
     return true;

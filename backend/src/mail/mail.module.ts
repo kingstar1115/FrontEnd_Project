@@ -12,12 +12,12 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => ({
         transport: {
-          service: config.get("MAIL_SERVICE"),
+          service: config.get('MAIL_SERVICE'),
           host: config.get('MAIL_HOST'),
           secure: false,
           auth: {
-            user: config.get("MAIL_USER"),
-            pass: config.get("MAIL_PASSWORD"),
+            user: config.get('MAIL_USER'),
+            pass: config.get('MAIL_PASSWORD'),
           },
           tls: { rejectUnauthorized: false },
           default: {
@@ -34,10 +34,10 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
         },
       }),
       inject: [ConfigService],
-    })
+    }),
   ],
   controllers: [MailController],
   providers: [MailService],
   exports: [MailService],
 })
-export class MailModule { }
+export class MailModule {}
