@@ -1,7 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
-export class CreateContactDto{
+export class CreateContactDto {
   @ApiProperty()
   @IsNotEmpty()
   firstname: string;
