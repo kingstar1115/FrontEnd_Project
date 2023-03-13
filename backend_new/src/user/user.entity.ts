@@ -79,7 +79,7 @@ export class User {
 
   @OneToMany(() => Blog, (blog) => blog.user)
   @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
-  blogs: AuthRefreshToken[];
+  blogs: Blog[];
 
   @OneToMany(() => BlogView, (blog_view) => blog_view.user)
   @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })

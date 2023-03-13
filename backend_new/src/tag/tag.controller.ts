@@ -42,10 +42,7 @@ export class TagController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: number,
-    @Body() updateTag: UpdateTagDto,
-  ): Promise<Tag> {
+  async update(@Param('id') id: number, @Body() updateTag: UpdateTagDto) {
     const updatedTag = await this.tagService.update(id, updateTag);
     return updatedTag;
   }

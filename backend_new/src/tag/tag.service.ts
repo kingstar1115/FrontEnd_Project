@@ -21,9 +21,15 @@ export class TagService {
     return await this.tagRepository.save(createdTag);
   }
 
-  async update(id: number, body: UpdateTagDto): Promise<Tag> {
-    await this.tagRepository.update({ id }, this.tagRepository.create(body));
+  async update(id: number, body: UpdateTagDto) {
+    const tag = await this.findById(id);
 
-    return this.findById(id);
+    if (tag) {
+      await this.tagRepository.update({ id }, this.tagRepository.create(body));
+
+      return await this.findById(id);
+    }
+
+    return `Tag ID:${id} is not exist`;
   }
 }

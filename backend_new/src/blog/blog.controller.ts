@@ -42,10 +42,7 @@ export class BlogController {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: number,
-    @Body() updateBlog: UpdateBlogDto,
-  ): Promise<Blog> {
+  async update(@Param('id') id: number, @Body() updateBlog: UpdateBlogDto) {
     const updatedBlog = await this.blogService.update(id, updateBlog);
     return updatedBlog;
   }

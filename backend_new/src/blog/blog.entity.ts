@@ -16,9 +16,7 @@ import { Tag } from '@src/tag/tag.entity';
 
 @Entity()
 export class Blog {
-  @PrimaryGeneratedColumn({
-    type: 'bigint',
-  })
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
@@ -33,6 +31,12 @@ export class Blog {
   @Column({ name: 'is_delete', default: false })
   isDelete: boolean;
 
+  @Column({ type: 'bigint' })
+  userId: number;
+
+  @Column({ type: 'bigint', nullable: true })
+  tagId: number;
+
   @ManyToOne(() => User, (user) => user.blogs, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: User;
@@ -42,9 +46,11 @@ export class Blog {
   tag: Tag;
 
   @OneToMany(() => Comment, (comment) => comment.blog)
+  @JoinColumn({ name: 'id', referencedColumnName: 'blog_id' })
   comments: Comment[];
 
   @OneToMany(() => BlogView, (blog_view) => blog_view.blog)
+  @JoinColumn({ name: 'id', referencedColumnName: 'blog_id' })
   blog_views: BlogView[];
 
   @CreateDateColumn()
