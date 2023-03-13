@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
+import { TagExistsByIdValidator } from '@src/tag/validators/tag-exists-by-id.validator';
+import { UserExistsByIdValidator } from '@src/user/validator/user-exists-by-id.validator';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+  Validate,
+} from 'class-validator';
 
 export class CreateBlogDto {
   @ApiProperty({
@@ -20,7 +28,7 @@ export class CreateBlogDto {
   @IsOptional()
   @IsString()
   @MinLength(1)
-  banner_img: string;
+  bannerImg: string;
 
   @ApiProperty({
     example: 'Content',
@@ -31,20 +39,14 @@ export class CreateBlogDto {
   @MinLength(1)
   content: string;
 
-  @ApiProperty({
-    example: 'User Id',
-    required: true,
-    description: 'User id',
-  })
+  @ApiProperty()
+  @Validate(UserExistsByIdValidator)
   @IsNumber()
-  user_id: number;
+  userId: number;
 
-  @ApiProperty({
-    example: 'Tag Id',
-    required: false,
-    description: 'Tag id',
-  })
+  @ApiProperty()
   @IsOptional()
+  @Validate(TagExistsByIdValidator)
   @IsNumber()
-  tag_id: number;
+  tagId: number;
 }

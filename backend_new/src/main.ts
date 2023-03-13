@@ -20,5 +20,7 @@ async function bootstrap() {
   AppBootstrapManager.setAppDefaults(app);
 
   await app.listen(process.env.PORT || 3005);
+
+  console.log(`Server is running with ${process.env.PORT || 3005} port.`);
 }
 bootstrap();
