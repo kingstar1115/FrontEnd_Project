@@ -26,6 +26,9 @@ export class Comment {
   @Column({ nullable: true })
   email: string;
 
+  @Column({ type: 'bigint' })
+  blogId: number;
+
   @Column({
     name: 'parent_id',
     type: 'bigint',

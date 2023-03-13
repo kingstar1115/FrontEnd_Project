@@ -21,6 +21,8 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3005);
 
-  console.log(`Server is running with ${process.env.PORT || 3005} port.`);
+  console.log(
+    `Algonrich Backend Server is running with ${process.env.PORT || 3005} Port`,
+  );
 }
 bootstrap();

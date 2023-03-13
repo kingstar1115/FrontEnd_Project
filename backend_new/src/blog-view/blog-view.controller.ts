@@ -35,12 +35,6 @@ export class BlogViewController {
     return allBlogViews;
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number): Promise<BlogView> {
-    const blogview = await this.blogViewService.findById(id);
-    return blogview;
-  }
-
   @Get('/userid/:id')
   async findByUserId(@Param('id') id: number): Promise<BlogView[]> {
     const blogviews = await this.blogViewService.findByUserId(id);
@@ -51,6 +45,12 @@ export class BlogViewController {
   async findByBlogId(@Param('id') id: number): Promise<BlogView[]> {
     const blogviews = await this.blogViewService.findByBlogId(id);
     return blogviews;
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<BlogView> {
+    const blogview = await this.blogViewService.findById(id);
+    return blogview;
   }
 
   @Patch(':id')
