@@ -13,7 +13,7 @@ export class BlogRepository extends Repository<Blog> {
     queryBuilder.leftJoinAndSelect('blog.user', 'user');
     queryBuilder.leftJoinAndSelect('blog.tag', 'tag');
 
-    const blog = await queryBuilder.where({ id }).getOne();
+    const blog = await queryBuilder.where({ id, isDelete: true }).getOne();
 
     return blog;
   }
@@ -24,7 +24,7 @@ export class BlogRepository extends Repository<Blog> {
     queryBuilder.leftJoinAndSelect('blog.user', 'user');
     queryBuilder.leftJoinAndSelect('blog.tag', 'tag');
 
-    const blogs = await queryBuilder.getMany();
+    const blogs = await queryBuilder.where({ isDelete: true }).getMany();
 
     return blogs;
   }

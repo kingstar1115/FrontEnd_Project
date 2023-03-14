@@ -17,6 +17,6 @@ export class CommentExistsByIdValidator
   }
 
   defaultMessage() {
-    return 'Blog not found';
+    return 'Comment not found';
   }
 }

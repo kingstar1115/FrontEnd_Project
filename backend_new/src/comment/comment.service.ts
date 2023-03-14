@@ -50,4 +50,19 @@ export class CommentService {
 
     return `Comment ID:${id} is not exist`;
   }
+
+  async delete(id: number): Promise<string> {
+    const comment = await this.findById(id);
+
+    if (comment) {
+      await this.commentRepository.update(
+        { id },
+        this.commentRepository.create({ ...comment, isDelete: true }),
+      );
+
+      return 'Deleted Successful';
+    }
+
+    return `Comment ID:${id} is not exist`;
+  }
 }
