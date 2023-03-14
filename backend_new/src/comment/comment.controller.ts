@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -54,5 +55,11 @@ export class CommentController {
   ) {
     const updatedComment = await this.commentService.update(id, updateComment);
     return updatedComment;
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<string> {
+    const alert = await this.commentService.delete(id);
+    return alert;
   }
 }

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -45,5 +46,11 @@ export class BlogController {
   async update(@Param('id') id: number, @Body() updateBlog: UpdateBlogDto) {
     const updatedBlog = await this.blogService.update(id, updateBlog);
     return updatedBlog;
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<string> {
+    const alert = await this.blogService.delete(id);
+    return alert;
   }
 }

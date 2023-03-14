@@ -48,4 +48,19 @@ export class BlogService {
 
     return `Blog ID:${id} is not exist`;
   }
+
+  async delete(id: number): Promise<string> {
+    const blog = await this.findById(id);
+
+    if (blog) {
+      await this.blogRepository.update(
+        { id },
+        this.blogRepository.create({ ...blog, isDelete: true }),
+      );
+
+      return 'Deleted Successful';
+    }
+
+    return `Blog ID:${id} is not exist`;
+  }
 }

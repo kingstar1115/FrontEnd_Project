@@ -12,7 +12,7 @@ export class CommentRepository extends Repository<Comment> {
 
     queryBuilder.leftJoinAndSelect('comment.blog', 'blog');
 
-    const comment = await queryBuilder.where({ id }).getOne();
+    const comment = await queryBuilder.where({ id, isDelete: true }).getOne();
 
     return comment;
   }
@@ -22,7 +22,9 @@ export class CommentRepository extends Repository<Comment> {
 
     queryBuilder.leftJoinAndSelect('comment.blog', 'blog');
 
-    const comment = await queryBuilder.where({ blogId }).getMany();
+    const comment = await queryBuilder
+      .where({ blogId, isDelete: true })
+      .getMany();
 
     return comment;
   }
@@ -32,7 +34,7 @@ export class CommentRepository extends Repository<Comment> {
 
     queryBuilder.leftJoinAndSelect('comment.blog', 'blog');
 
-    const comments = await queryBuilder.getMany();
+    const comments = await queryBuilder.where({ isDelete: true }).getMany();
 
     return comments;
   }
