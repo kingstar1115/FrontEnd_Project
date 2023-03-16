@@ -22,8 +22,8 @@ $primary-hover-color: #3d4db5;
 
       & .swap_control_left {
         span {
-          border: 1px solid #FF06B7;
-          background: #FF06B7;
+          border: 1px solid #ff06b7;
+          background: #ff06b7;
           color: #fff;
           padding: 5px 20px;
           cursor: pointer;
@@ -58,14 +58,15 @@ $primary-hover-color: #3d4db5;
           display: flex;
 
           &_input {
-            border: 1px solid #0D102D;
-            background: #0F1336;
+            border: 1px solid #0d102d;
+            background: #0f1336;
             height: 52px;
             border-radius: 0px;
             padding: 5px 15px;
             width: 74%;
             border-right: 0px solid #f1f1f1;
             outline: none;
+            border-radius: 10px;
           }
 
           &_select {
@@ -137,7 +138,7 @@ $primary-hover-color: #3d4db5;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #FF06B7;
+        background-color: #ff06b7;
         border-radius: 50%;
       }
     }
@@ -148,7 +149,7 @@ $primary-hover-color: #3d4db5;
       button {
         width: 100%;
         height: 50px;
-        background-color: #FF06B7;
+        background-color: #ff06b7;
         color: white;
         font-size: 18px;
         font-weight: 600;
@@ -193,9 +194,9 @@ $primary-hover-color: #3d4db5;
           ul {
             padding: 20px 0;
             display: flex;
-            li{
+            li {
               padding: 5px 10px;
-              background: #FF06B7;
+              background: #ff06b7;
               margin-right: 10px;
               min-width: 60px;
               text-align: center;
@@ -203,7 +204,7 @@ $primary-hover-color: #3d4db5;
           }
         }
       }
-      &.dis-none{
+      &.dis-none {
         display: none;
         transition: all 1s ease;
       }

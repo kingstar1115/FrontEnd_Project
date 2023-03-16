@@ -30,15 +30,10 @@ export default function Swap() {
   const [maxTokenFromAmount, setMaxTokenFromAmount] = useState(0);
   const [wallet, setWallet] = useState<string | null>(null);
   const [walletChainId, setChainId] = useState<string | null>(null);
-  const {
-    bnb,
-    updateBnb,
-    tokenBalance,
-    updateTokenBalance,
-    getTokenBalance,
-  } = useBalances(56);
+  const { bnb, updateBnb, tokenBalance, updateTokenBalance, getTokenBalance } =
+    useBalances(56);
   const { swapTokens, loading, disabled, error } = useSwap(56);
-  
+
   const {
     connect,
     disconnect,
@@ -61,7 +56,11 @@ export default function Swap() {
       toastInfo("Input Invalid");
       return;
     }
-    swapTokens(tokenAmountFrom, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]).then((res) => {
+    swapTokens(
+      tokenAmountFrom,
+      CONTRACT_ADDR[coinFrom],
+      CONTRACT_ADDR[coinTo]
+    ).then((res) => {
       if (res) {
         updateBnb();
         updateTokenBalance();
@@ -79,27 +78,35 @@ export default function Swap() {
     return true;
   };
   useEffect(() => {
-    if(account) {
+    if (account) {
       localStorage.setItem("walletAddress", String(account));
-      localStorage.setItem('chainId', String(chainId));
+      localStorage.setItem("chainId", String(chainId));
     }
 
-    if(localStorage.getItem('walletAddress') !== null) {
-      setWallet(String(localStorage.getItem('walletAddress')));
+    if (localStorage.getItem("walletAddress") !== null) {
+      setWallet(String(localStorage.getItem("walletAddress")));
     }
-    if(localStorage.getItem('chainId') !== null) {
-      setChainId(String(localStorage.getItem('chainId')));
+    if (localStorage.getItem("chainId") !== null) {
+      setChainId(String(localStorage.getItem("chainId")));
     }
 
     let _temp_max = 0;
-    if (coinFrom === 'BNB') {
-      _temp_max = (bnb > 0.001) ? bnb - 0.001 : 0;
+    if (coinFrom === "BNB") {
+      _temp_max = bnb > 0.001 ? bnb - 0.001 : 0;
       setMaxTokenFromAmount(_temp_max);
-      getTradeAmount(tokenAmountFrom, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
+      getTradeAmount(
+        tokenAmountFrom,
+        CONTRACT_ADDR[coinFrom],
+        CONTRACT_ADDR[coinTo]
+      );
     } else {
       getTokenBalance(CONTRACT_ADDR[coinFrom], erc20abi);
       setMaxTokenFromAmount(tokenBalance);
-      getOtherTradeAmount(tokenAmountFrom, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
+      getOtherTradeAmount(
+        tokenAmountFrom,
+        CONTRACT_ADDR[coinFrom],
+        CONTRACT_ADDR[coinTo]
+      );
     }
 
     // disconnect
@@ -114,26 +121,42 @@ export default function Swap() {
   return (
     <div className="justify-between mx-auto w-[95%] lg:w-[90%] swap_form py-[150px] gap-[100px] flex-col md:flex-row items-center">
       <div className="max-w-[500px] text-left ml-[20px]">
-        <p className="uppercase tracking-[1px] font-[700] text-[17px] text-white mb-[10px]">Coin Swap</p>
-        <h2 className="text-[52px] text-white font-[700] leading-[60px] mb-[15px]">You can swap <span className="text-[#ff06b7]">Algos</span> here</h2>
-        <p className="text-[18px] leading-[28px] text-[#ddd]">Take advantage now of our prices's and rewards.</p>
+        <p className="uppercase tracking-[1px] font-[700] text-[17px] text-white mb-[10px]">
+          Coin Swap
+        </p>
+        <h2 className="text-[52px] text-white font-[700] leading-[60px] mb-[15px]">
+          You can swap <span className="text-[#ff06b7]">Algos</span> here
+        </h2>
+        <p className="text-[18px] leading-[28px] text-[#ddd]">
+          Take advantage now of our prices's and rewards.
+        </p>
       </div>
       <div className="swap_form_content w-[90%] md:max-w-[450px]">
         <div className="swap_form_content_top">
           <div className="swap_control_left">
-            {wallet &&
+            {wallet && (
               <span
                 className="flex"
                 onClick={() => {
                   disconnect();
-                  setWallet('');
-                  setChainId('');
+                  setWallet("");
+                  setChainId("");
                 }}
               >
-                <FontAwesomeIcon icon={faWallet} color="white" size="xs" style={{marginRight:"10px", border: "1px solid", borderRadius: "50%", padding: "3px"}}/>
+                <FontAwesomeIcon
+                  icon={faWallet}
+                  color="white"
+                  size="xs"
+                  style={{
+                    marginRight: "10px",
+                    border: "1px solid",
+                    borderRadius: "50%",
+                    padding: "3px",
+                  }}
+                />
                 {shortenIfAddress(wallet)}
               </span>
-            }
+            )}
           </div>
           <div className="swap_contol_right">
             <div
@@ -151,73 +174,86 @@ export default function Swap() {
         </div>
         <div className="swap_form_content_ratebar">
           <span className="text-[20px]">{rate.toFixed(2)} </span>
-          <span className="text-[12px]">{coinFrom}/{coinTo}</span>
+          <span className="text-[12px]">
+            {coinFrom}/{coinTo}
+          </span>
         </div>
         <div className="swap_form_content_inner_form">
           <div className="form">
             <label htmlFor="">
               From ({"Max :" + maxTokenFromAmount.toFixed(5) + " " + coinFrom})
-            </label>
-            <div className="form_content">
-              <input
-                type="number"
-                className="form_content_input"
-                placeholder="0"
-                min={0}
-                value={tokenAmountFrom}
-                onInput={(e: any) => {
-                  setTokenAmountFrom(e.target.value);
-                  let amount = 0;
-                  if (e.target.value) {
-                    amount = parseFloat(e.target.value);
-                  }
-                  if (coinFrom === "BNB") {
-                    getTradeAmount(amount, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
-                  } else {
-                    getOtherTradeAmount(amount, CONTRACT_ADDR[coinFrom], CONTRACT_ADDR[coinTo]);
-                  }
-                }}
-                onKeyDown={(evt) =>
-                  ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()
-                }
-              />
-              <div className="form_content_select">
-                <div
-                  className="select_header"
-                  style={{cursor: 'pointer'}}
-                  onClick={() => setOpenSelectFrom(!openSelectFrom)}
-                >
-                  <span>{coinFrom}</span>
-                  <FontAwesomeIcon
-                    icon={openSelectFrom === true ? faCaretDown : faCaretRight}
-                    color="white"
-                    size="sm"
-                    className="icon"
-                  />
-                </div>
-                <div
-                  className="select_content"
-                  style={{ display: openSelectFrom ? "" : "none" }}
-                >
-                  <ul style={{cursor: 'pointer'}}>
-                    {COINSFROM.map((coin, ind) => {
-                      if (coinTo === coin) return;
-                      return (
-                        <li
-                          key={ind}
-                          onClick={() => {
-                            setCoinFrom(coin);
-                            setOpenSelectFrom(false);
-                          }}
-                        >
-                          {coin}
-                        </li>
+              <div className="form_content">
+                <input
+                  type="number"
+                  className="form_content_input"
+                  placeholder="0"
+                  min={0}
+                  value={tokenAmountFrom}
+                  onInput={(e: any) => {
+                    setTokenAmountFrom(e.target.value);
+                    let amount = 0;
+                    if (e.target.value) {
+                      amount = parseFloat(e.target.value);
+                      if (coinFrom === "BNB") {
+                        getTradeAmount(
+                          amount,
+                          CONTRACT_ADDR[coinFrom],
+                          CONTRACT_ADDR[coinTo]
+                        );
+                      }
+                    } else {
+                      getOtherTradeAmount(
+                        amount,
+                        CONTRACT_ADDR[coinFrom],
+                        CONTRACT_ADDR[coinTo]
                       );
-                    })}
-                  </ul>
+                    }
+                  }}
+                  onKeyDown={(evt) =>
+                    ["e", "E", "+", "-"].includes(evt.key) &&
+                    evt.preventDefault()
+                  }
+                />
+                <div className="form_content_select">
+                  <div
+                    className="select_header"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setOpenSelectFrom(!openSelectFrom)}
+                  >
+                    <span>{coinFrom}</span>
+                    <FontAwesomeIcon
+                      icon={
+                        openSelectFrom === true ? faCaretDown : faCaretRight
+                      }
+                      color="white"
+                      size="sm"
+                      className="icon"
+                    />
+                  </div>
+                  <div
+                    className="select_content"
+                    style={{ display: openSelectFrom ? "" : "none" }}
+                  >
+                    <ul style={{ cursor: "pointer" }}>
+                      {COINSFROM.map((coin, ind) => {
+                        if (coinTo === coin) return;
+                        return (
+                          <li
+                            key={ind}
+                            onClick={() => {
+                              setCoinFrom(coin);
+                              setOpenSelectFrom(false);
+                            }}
+                          >
+                            {coin}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
+            </label>
           </div>
         </div>
         <div className="swap_form_content_middle_bar">
@@ -242,7 +278,7 @@ export default function Swap() {
                     amount = e.target.value;
                   }
                   // getTradeRate(amount)
-                  setTokenAmountFrom(parseFloat((amount / rate).toFixed(8)))
+                  setTokenAmountFrom(parseFloat((amount / rate).toFixed(8)));
                 }}
                 onKeyDown={(evt) =>
                   ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()
@@ -251,7 +287,7 @@ export default function Swap() {
               <div className="form_content_select">
                 <div
                   className="select_header"
-                  style={{cursor: 'pointer'}}
+                  style={{ cursor: "pointer" }}
                   onClick={() => setOpenSelectTo(!openSelectTo)}
                 >
                   <span>{coinTo}</span>
@@ -266,7 +302,7 @@ export default function Swap() {
                   className="select_content"
                   style={{ display: openSelectTo ? "" : "none" }}
                 >
-                  <ul style={{cursor: 'pointer'}}>
+                  <ul style={{ cursor: "pointer" }}>
                     {COINSTO.map((coin, ind) => {
                       if (coinFrom === coin) return;
                       return (
@@ -288,7 +324,7 @@ export default function Swap() {
           </div>
         </div>
         <div className="swap_form_content_btn">
-          {wallet && !isUnsupportedChainIdError && walletChainId === '56' ? (
+          {wallet && !isUnsupportedChainIdError && walletChainId === "56" ? (
             <button onClick={() => handleSwapToken()}>
               <Trans i18nKey="text_swap">Swap</Trans>
             </button>
