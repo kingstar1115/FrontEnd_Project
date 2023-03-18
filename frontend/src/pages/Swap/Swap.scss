@@ -1,4 +1,51 @@
 $primary-hover-color: #3d4db5;
+.tokenLogo {
+  height: 40px;
+  width: 40px;
+}
+
+.modalContent {
+  border-top: 1px solid #dbe5ff;
+    /* padding-top: 20px; */
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.tokenChoice {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.tokenChoice:hover {
+  cursor: pointer;
+  background-color: #c5cee9;
+}
+
+.tokenName {
+  color: #fff;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.tokenTicker {
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 300;
+  color: #51596f;
+}
+
+
+.assetLogo {
+  height: 22px;
+}
+
 
 .swap_form {
   display: flex;
@@ -39,6 +86,7 @@ $primary-hover-color: #3d4db5;
         }
       }
     }
+
     &_inner_form {
       .form {
         text-align: start;
@@ -85,7 +133,7 @@ $primary-hover-color: #3d4db5;
               align-items: center;
               // justify-content: center;
               position: relative;
-              padding-left: 1.5em;
+              padding-left: 1em;
 
               .icon {
                 position: absolute;
@@ -120,6 +168,10 @@ $primary-hover-color: #3d4db5;
                   margin-bottom: 0.8em;
                   text-align: start;
                   padding-left: 1.6em;
+
+                  img.tokenLogo {
+                    width: 15px;
+                  }
                 }
               }
             }
@@ -171,6 +223,7 @@ $primary-hover-color: #3d4db5;
     // padding-right: 20px;
     // border: 1px solid white;
     box-shadow: 0px 0px 7px $primary-hover-color;
+
     &_setting {
       padding: 20px;
       background-color: #131740;
@@ -191,9 +244,11 @@ $primary-hover-color: #3d4db5;
         .swap_set {
           text-align: start;
           margin-bottom: 20px;
+
           ul {
             padding: 20px 0;
             display: flex;
+
             li {
               padding: 5px 10px;
               background: #ff06b7;
@@ -204,6 +259,7 @@ $primary-hover-color: #3d4db5;
           }
         }
       }
+
       &.dis-none {
         display: none;
         transition: all 1s ease;
